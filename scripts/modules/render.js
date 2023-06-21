@@ -1,6 +1,7 @@
 import {getCurrentDateTime}from './utils.js';
 
 export const renderWidgetToday = (widget) => {
+    const {month, year, dayOfMonth, dayOfWeek, hours, minutes} = getCurrentDateTime();
 
     const currentDateTime = getCurrentDateTime();
     console.log('currentDateTime: ' , currentDateTime);
@@ -11,9 +12,9 @@ export const renderWidgetToday = (widget) => {
         `
         <div class="widget__today">
       <div class="widget__date-block">
-        <p class="widget__date">20 июн 2023</p>
-        <p class="widget__time">09:00</p>
-        <p class="widget__day">${currentDateTime.dayOfWeek}</p>
+        <p class="widget__date">${dayOfMonth} ${month} ${year}</p>
+        <p class="widget__time">${hours}:${minutes}</p>
+        <p class="widget__day">${dayOfWeek}</p>
       </div>
       <div class="widget__icon">
         <img class="widget__img" src="./icon/01d.svg" alt="Погода">
