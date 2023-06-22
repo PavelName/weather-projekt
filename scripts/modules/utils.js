@@ -49,3 +49,21 @@ const minutes = addZero(date.getMinutes()) ;
 return { month, year, dayOfMonth, dayOfWeek, hours, minutes};
 
 };
+
+export const getwindDerection = (deg) => {
+  const direction = [
+    '&#8593;',
+    '&#8598;',
+    '&#8592;',
+    '&#8601;',
+    '&#8595;',
+    '&#8600;',
+    '&#8594;',
+    '&#8599;',
+  ];
+
+const i = Math.round(deg / 45) % 8;
+
+return direction[i];
+
+};

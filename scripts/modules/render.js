@@ -1,10 +1,11 @@
-import {getCurrentDateTime}from './utils.js';
+import {getCurrentDateTime, getwindDerection} from './utils.js';
 
-export const renderWidgetToday = (widget) => {
+export const renderWidgetToday = (widget, data) => {
     const {month, year, dayOfMonth, dayOfWeek, hours, minutes} = getCurrentDateTime();
 
-    const currentDateTime = getCurrentDateTime();
-    console.log('currentDateTime: ' , currentDateTime);
+    // const currentDateTime = getCurrentDateTime();
+    // console.log('currentDateTime: ' , currentDateTime);
+    // console.log(data);
 
 
     widget.insertAdjacentHTML(
@@ -17,36 +18,39 @@ export const renderWidgetToday = (widget) => {
         <p class="widget__day">${dayOfWeek}</p>
       </div>
       <div class="widget__icon">
-        <img class="widget__img" src="./icon/01d.svg" alt="Погода">
+        <img class="widget__img" src="./icon/${data.weather[0]. icon}.svg" alt="Погода">
       </div>
       <div class="widget__wheather">
         <div class="widget__city">
-          <p>Калининград</p>
+          <p>${data.name}</p>
           <button class="widget__change-city" aria-label="Изменить город"></button>
         </div>
-        <p class="widget__temp-big">19.3°C</p>
+        <p class="widget__temp-big">${(data.main.temp - 273.15).toFixed(1)}°C</p>
         <p class="widget__felt">ощущается</p>
-        <p class="widget__temp-small">18.8 °C</p>
+        <p class="widget__temp-small">${(data.main.feels_like - 273.15).toFixed(1)}°C</p>
       </div>
         
         `
     )
 }
-export const renderWidgetOther = (widget) => {
+export const renderWidgetOther = (widget, data) => {
+console.log('data ', data);
      widget.insertAdjacentHTML(
         'beforeend',
         `
         <div class="widget__other">
         <div class="widget__wind">
           <p class="widget__wind-title">Ветер</p>
-          <p class="widget__wind-speed">3.94 м/с</p>
-          <p class="widget__wind-text">&#8599;</p>
+        <p class="widget__wind-speed">${data.wind.speed} м/с</p>
+          <p class="widget__wind-text">${getwindDerection(90)}</p>
   
         </div>
         <div class="widget__humidity">
           <p class="widget__humidity-title">Влажность</p>
-          <p class="widget__humidity-value">27%</p>
-          <p class="widget__humidity-text">Т.Р: -0.2 °C</p>
+          <p class="widget__humidity-value">${data.main.humidity}%</p>
+          <p class="widget__humidity-text">Т.Р: ${
+            calculateDewPoint((data.main.temp - 273.15),data.main.humidity)
+          }°C</p>
         </div>
         <div class="widget__pressure">
           <p class="widget__pressure-title">Давление</p>
@@ -93,4 +97,9 @@ export const renderWidgetForecast = (widget) => {
        `
     )   
 
+}
+
+export const showError = (widget, error) => {
+  widget.textContent = error.toString();
+  widget.classList.add('widget_error');
 }
