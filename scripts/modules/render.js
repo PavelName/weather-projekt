@@ -1,4 +1,4 @@
-import {getCurrentDateTime, getwindDerection} from './utils.js';
+import {calculateDewPoint,getCurrentDateTime, getwindDerection} from './utils.js';
 
 export const renderWidgetToday = (widget, data) => {
     const {month, year, dayOfMonth, dayOfWeek, hours, minutes} = getCurrentDateTime();

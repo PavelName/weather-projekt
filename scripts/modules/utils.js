@@ -67,3 +67,15 @@ const i = Math.round(deg / 45) % 8;
 return direction[i];
 
 };
+
+export const calculateDewPoint = (temp, humidity) =>{
+
+  const a = 17.27;
+  const b = 2237.7;
+
+  const ft = (a * temp) / (b + temp) + Math.log(humidity / 100);
+  const dewPoint = (b* ft) / (a - ft);
+
+  return dewPoint.toFixed(1);
+
+}
