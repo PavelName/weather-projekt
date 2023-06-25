@@ -43,7 +43,7 @@ export const fetchForecast = async (city) => {
             throw new Error('Ошибка получения горогда');
            }
 
-           const city = await response.text();
+           const cityData = await response.text();
            return { success: true, city};
 
         } catch (error) {
